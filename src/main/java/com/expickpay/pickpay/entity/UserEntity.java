@@ -1,5 +1,6 @@
 package com.expickpay.pickpay.entity;
 
+import com.expickpay.pickpay.dtos.UserDto;
 import com.expickpay.pickpay.enums.UserTypes;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,6 @@ import lombok.Setter;
 @Table(name = "tb_user")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class UserEntity {
     @Id
@@ -30,5 +30,13 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     private UserTypes userType;
+
+    public UserEntity(UserDto dataUser) {
+        this.username = dataUser.username();
+        this.cpf = dataUser.cpf();
+        this.email = dataUser.email();
+        this.password = dataUser.password();
+        this.userType = UserTypes.valueOf(dataUser.UserType());
+    }
 }
 
