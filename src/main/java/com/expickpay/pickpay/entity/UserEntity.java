@@ -1,5 +1,6 @@
 package com.expickpay.pickpay.entity;
 
+import com.expickpay.pickpay.enums.UserTypes;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,10 +13,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users {
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String username;
 
@@ -26,5 +27,8 @@ public class Users {
     private String email;
 
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserTypes userType;
 }
 
