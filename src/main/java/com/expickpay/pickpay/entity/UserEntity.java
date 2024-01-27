@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "tb_user")
 @Getter
@@ -31,12 +33,15 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private UserTypes userType;
 
+    private BigDecimal amount;
+
     public UserEntity(UserDto dataUser) {
         this.username = dataUser.username();
         this.cpf = dataUser.cpf();
         this.email = dataUser.email();
         this.password = dataUser.password();
         this.userType = UserTypes.valueOf(dataUser.UserType());
+        this.amount = dataUser.amount();
     }
 }
 
