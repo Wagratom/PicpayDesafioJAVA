@@ -40,6 +40,8 @@ public class TransactionService {
         transaction.setReceiver(userReceiver);
         transaction.setDate(LocalDateTime.now());
         this.userService.updateAmount(userSender, userReceiver, dto.amount());
+
+        sendNotification(transaction);
         return this.transactionRepository.save(transaction);
     }
 
@@ -64,5 +66,17 @@ public class TransactionService {
             }
         }
         throw new InvalidTransactionException("Transaction not authorized by the API");
+    }
+
+    public void sendNotification(TransactionEntity transaction) {
+        String message = "Você recebeu uma transferência de " + transaction.getAmount() + " de " + transaction.getSender().getUsername();
+        ResponseEntity<Map> statusNotification = this.restTemplate.postForEntity("https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6", message, Map.class);
+        if (statusNotification.getStatusCode() == HttpStatus.OK) {
+            Boolean messageResponse = (Boolean) statusNotification.getBody().get("message");
+            if (messageResponse != null && messageResponse.equals(true)) {
+                return;
+            }
+        }
+        throw new InvalidTransactionException("Notification not sent by the API");
     }
 }
