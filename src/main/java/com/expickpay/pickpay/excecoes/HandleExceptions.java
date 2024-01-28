@@ -4,6 +4,7 @@ import com.expickpay.pickpay.dtos.ExceptionDTO;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,7 +14,7 @@ public class HandleExceptions {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionDTO> handleException(Exception e) {
-        ExceptionDTO exceptionDTO = new ExceptionDTO("teste", "400");
+        ExceptionDTO exceptionDTO = new ExceptionDTO(e.getMessage(), "400");
         return ResponseEntity.badRequest().body(exceptionDTO);
     }
 
