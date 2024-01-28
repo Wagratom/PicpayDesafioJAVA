@@ -1,5 +1,7 @@
 package com.expickpay.pickpay.dtos;
 
+import java.math.BigDecimal;
+
 public record UserDto(
         String username,
 
@@ -7,6 +9,8 @@ public record UserDto(
         String email,
         String password,
 
-        String UserType
+        String UserType,
+
+        BigDecimal amount
 ) {
 }
