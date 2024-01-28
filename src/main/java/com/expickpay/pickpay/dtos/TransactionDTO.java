@@ -1,4 +1,6 @@
 package com.expickpay.pickpay.dtos;
 
-public record TransactionDTO(Long senderId, Long receiverId, Double amount) {
+import java.math.BigDecimal;
+
+public record TransactionDTO(Long senderId, Long receiverId, BigDecimal amount) {
 }
