@@ -6,6 +6,7 @@ import com.expickpay.pickpay.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,9 +25,8 @@ public class UserControllers {
         return ResponseEntity.ok(allUsers);
     }
     @PostMapping("/create")
-    public ResponseEntity<UserEntity> hello(@RequestBody UserDto dto) {
+    public ResponseEntity<UserEntity> createUser(@RequestBody @Validated UserDto dto) {
         UserEntity newUser = this.userService.createUser(dto);
        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
-
 }
