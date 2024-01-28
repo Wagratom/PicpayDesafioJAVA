@@ -45,14 +45,15 @@ public class UserService {
         }
         return this.usersRepository.getReferenceById(id);
     }
-    public void updateAmount(UserEntity user, BigDecimal amount){
-        if (user == null) {
-            throw new IllegalArgumentException("Error: updateAmount: updateAmount: User is null or invalid");
+    public void updateAmount(UserEntity sender, UserEntity receiver, BigDecimal amount){
+        if (sender == null || receiver == null) {
+            throw new IllegalArgumentException("Error: updateAmount: updateAmount: sender or receiver is null");
         }
         if (amount == null) {
             throw new IllegalArgumentException("Error: updateAmount: updateAmount: Amount is null or invalid");
         }
-        user.setAmount(user.getAmount().subtract(amount));
-        this.usersRepository.save(user);
+        sender.setAmount(sender.getAmount().subtract(amount));
+        receiver.setAmount(receiver.getAmount().add(amount));
+        this.usersRepository.save(sender);
     }
 }
