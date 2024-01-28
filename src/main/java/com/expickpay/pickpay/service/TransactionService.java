@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -25,6 +26,10 @@ public class TransactionService {
     public TransactionService(TransactionRepository transactionRepository, UserService userService) {
         this.transactionRepository = transactionRepository;
         this.userService = userService;
+    }
+
+    public List<TransactionEntity> getAllTransactions() {
+        return this.transactionRepository.findAll();
     }
 
     public TransactionEntity createTransaction(TransactionDTO dto){

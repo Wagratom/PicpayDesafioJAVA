@@ -4,10 +4,9 @@ import com.expickpay.pickpay.entity.TransactionEntity;
 import com.expickpay.pickpay.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("transaction")
@@ -23,5 +22,11 @@ public class TransactionControllers {
     public ResponseEntity<TransactionEntity> ExecuteTransaction(@RequestBody TransactionDTO dto) {
         TransactionEntity transaction = this.transactionService.createTransaction(dto);
         return ResponseEntity.ok(transaction);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<TransactionEntity>> getAllTransactions() {
+        List<TransactionEntity> transactions = this.transactionService.getAllTransactions();
+        return ResponseEntity.ok(transactions);
     }
 }
