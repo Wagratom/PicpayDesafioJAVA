@@ -2,6 +2,7 @@ package com.expickpay.pickpay.service;
 
 import com.expickpay.pickpay.dtos.UserDto;
 import com.expickpay.pickpay.entity.UserEntity;
+import com.expickpay.pickpay.excecoes.InvalidIdException;
 import com.expickpay.pickpay.reposity.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +23,11 @@ public class UserService {
 
     public List<UserEntity> getAllUsers() {
         return this.usersRepository.findAll();
+    }
+
+    public UserEntity getUserById(Long id) {
+        return this.usersRepository.findById(id).orElseThrow(
+                ()-> new InvalidIdException("Invalid id")
+        );
     }
 }
